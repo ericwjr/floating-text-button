@@ -164,12 +164,9 @@ public class FloatingTextButton extends FrameLayout {
     }
 
     private void initViewRadius() {
-        container.post(new Runnable() {
-            @Override
-            public void run() {
-                container.setRadius(container.getHeight() / 2);
-            }
-        });
+        if (!container.post(() -> container.setRadius(container.getHeight() / 2))) {
+            container.post(() -> container.setRadius(container.getHeight() / 2));
+        }
     }
 
     private int getVerticalPaddingValue(int dp) {
