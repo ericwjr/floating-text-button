@@ -73,18 +73,19 @@ public class FloatingTextButton extends FrameLayout {
         this.verticalPadding = verticalPadding;
         container.setContentPadding(
                 getHorizontalPaddingValue(horizontalPadding),
-                getVerticalPaddingValue(this.verticalPadding),
+                getVerticalPaddingValue(verticalPadding),
                 getHorizontalPaddingValue(horizontalPadding),
-                getVerticalPaddingValue(this.verticalPadding)
+                getVerticalPaddingValue(verticalPadding)
         );
+        initViewRadius();
     }
 
     public void setHorizontalPadding(int horizontalPadding) {
         this.horizontalPadding = horizontalPadding;
         container.setContentPadding(
-                getHorizontalPaddingValue(this.horizontalPadding),
+                getHorizontalPaddingValue(horizontalPadding),
                 getVerticalPaddingValue(verticalPadding),
-                getHorizontalPaddingValue(this.horizontalPadding),
+                getHorizontalPaddingValue(horizontalPadding),
                 getVerticalPaddingValue(verticalPadding)
         );
     }
