@@ -8,6 +8,8 @@ import android.os.Build;
 import android.support.annotation.ColorInt;
 import android.support.v7.widget.CardView;
 import android.util.AttributeSet;
+import android.util.Log;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.FrameLayout;
@@ -18,6 +20,7 @@ import ru.dimorinny.floatingtextbutton.util.DimensionUtils;
 
 public class FloatingTextButton extends FrameLayout {
 
+    private static final String TAG = "Flt";
     private CardView container;
     private ImageView iconView;
     private TextView titleView;
@@ -125,11 +128,17 @@ public class FloatingTextButton extends FrameLayout {
         background = styleable.getColor(R.styleable.FloatingTextButton_floating_background_color, Color.WHITE);
         horizontalPadding = styleable.getInteger(R.styleable.FloatingTextButton_floating_vertical_padding, 8);
         verticalPadding = styleable.getInteger(R.styleable.FloatingTextButton_floating_horizontal_padding, 16);
-
+        float titleSizeFloatpx = styleable.getDimension(R.styleable.FloatingTextButton_floating_title_size, 12);
+        titleSize = (int) convertToSp(titleSizeFloatpx);
         styleable.recycle();
     }
 
+    private float convertToSp(float titleSizeFloatpx) {
+        return titleSizeFloatpx / getResources().getDisplayMetrics().scaledDensity;
+    }
+
     private void initView() {
+        setTitleSize(titleSize);
         setTitle(title);
         setTitleColor(titleColor);
         setIconDrawable(icon);
