@@ -6,10 +6,10 @@ import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.support.annotation.ColorInt;
+import android.support.annotation.RequiresApi;
 import android.support.v7.widget.CardView;
 import android.util.AttributeSet;
 import android.util.Log;
-import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.FrameLayout;
@@ -94,6 +94,7 @@ public class FloatingTextButton extends FrameLayout {
         container.setOnClickListener(listener);
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.ICE_CREAM_SANDWICH_MR1)
     @Override
     public boolean hasOnClickListeners() {
         return container.hasOnClickListeners();
@@ -126,14 +127,20 @@ public class FloatingTextButton extends FrameLayout {
         titleColor = styleable.getColor(R.styleable.FloatingTextButton_floating_title_color, Color.BLACK);
         icon = styleable.getDrawable(R.styleable.FloatingTextButton_floating_icon);
         background = styleable.getColor(R.styleable.FloatingTextButton_floating_background_color, Color.WHITE);
-        horizontalPadding = styleable.getInteger(R.styleable.FloatingTextButton_floating_vertical_padding, 8);
-        verticalPadding = styleable.getInteger(R.styleable.FloatingTextButton_floating_horizontal_padding, 16);
+        float verticalPaddingPixels = styleable.getDimension(R.styleable.FloatingTextButton_floating_vertical_padding, 8);
+        float horizontalPaddingPixels = styleable.getDimension(R.styleable.FloatingTextButton_floating_horizontal_padding, 16);
+        horizontalPadding = convertPxToDp(horizontalPaddingPixels);
+        verticalPadding = convertPxToDp(verticalPaddingPixels);
         float titleSizeFloatpx = styleable.getDimension(R.styleable.FloatingTextButton_floating_title_size, 12);
-        titleSize = (int) convertToSp(titleSizeFloatpx);
+        titleSize = (int) convertPxToSp(titleSizeFloatpx);
         styleable.recycle();
     }
 
-    private float convertToSp(float titleSizeFloatpx) {
+    private int convertPxToDp(float pixels) {
+        return (int) (pixels / getResources().getDisplayMetrics().density);
+    }
+
+    private float convertPxToSp(float titleSizeFloatpx) {
         return titleSizeFloatpx / getResources().getDisplayMetrics().scaledDensity;
     }
 
@@ -143,6 +150,8 @@ public class FloatingTextButton extends FrameLayout {
         setTitleColor(titleColor);
         setIconDrawable(icon);
         setBackgroundColor(background);
+        setHorizontalPadding(horizontalPadding);
+        setVerticalPadding(verticalPadding);
 
         container.setContentPadding(
                 getHorizontalPaddingValue(horizontalPadding),
