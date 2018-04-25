@@ -49,6 +49,8 @@
         android:layout_gravity="center_horizontal|bottom"
         android:layout_marginBottom="16dp"
         app:floating_title_size="@dimen/floating_text_button_text_size"
+        app:floating_vertical_padding="@dimen/vertical_padding"
+        app:floating_horizontal_padding="@dimen/horizontal_padding"
         app:layout_behavior="ru.dimorinny.floatingtextbutton.behavior.SnackbarBehavior"
         app:floating_background_color="?attr/colorPrimary"
         app:floating_icon="@drawable/ic_phone_white_24dp"
