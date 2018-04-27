@@ -128,11 +128,11 @@ public class FloatingTextButton extends FrameLayout {
         titleColor = styleable.getColor(R.styleable.FloatingTextButton_floating_title_color, Color.BLACK);
         icon = styleable.getDrawable(R.styleable.FloatingTextButton_floating_icon);
         background = styleable.getColor(R.styleable.FloatingTextButton_floating_background_color, Color.WHITE);
-        float verticalPaddingPixels = styleable.getDimension(R.styleable.FloatingTextButton_floating_vertical_padding, 8);
-        float horizontalPaddingPixels = styleable.getDimension(R.styleable.FloatingTextButton_floating_horizontal_padding, 16);
+        float verticalPaddingPixels = styleable.getDimension(R.styleable.FloatingTextButton_floating_vertical_padding, convertDpToPixel(8));
+        float horizontalPaddingPixels = styleable.getDimension(R.styleable.FloatingTextButton_floating_horizontal_padding, convertDpToPixel(16));
         horizontalPadding = convertPxToDp(horizontalPaddingPixels);
         verticalPadding = convertPxToDp(verticalPaddingPixels);
-        float titleSizeFloatpx = styleable.getDimension(R.styleable.FloatingTextButton_floating_title_size, 12);
+        float titleSizeFloatpx = styleable.getDimension(R.styleable.FloatingTextButton_floating_title_size, convertSpToPx(12));
         titleSize = (int) convertPxToSp(titleSizeFloatpx);
         styleable.recycle();
     }
@@ -141,8 +141,17 @@ public class FloatingTextButton extends FrameLayout {
         return (int) (pixels / getResources().getDisplayMetrics().density);
     }
 
+    private float convertDpToPixel(float dp){
+        float px = dp * getResources().getDisplayMetrics().density;
+        return px;
+    }
+
     private float convertPxToSp(float titleSizeFloatpx) {
         return titleSizeFloatpx / getResources().getDisplayMetrics().scaledDensity;
+    }
+
+    private float convertSpToPx(float titleSizeFloatsp) {
+        return titleSizeFloatsp * getResources().getDisplayMetrics().scaledDensity;
     }
 
     private void initView() {
